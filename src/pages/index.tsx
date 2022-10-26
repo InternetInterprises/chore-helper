@@ -16,7 +16,7 @@ const Home: NextPage = (props) => {
       </Head>
 
       <main className="container mx-auto flex min-h-screen flex-col items-center justify-center p-4">
-        <div className="flex w-full items-center justify-center pt-6 text-2xl text-blue-500">
+        <div className="items-center justify-center pt-6 text-2xl text-blue-500">
           {chores.data?.map((chore) => {
             return <div key={chore.id}>{chore.description}</div>;
           })}

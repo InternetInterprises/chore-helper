@@ -17,8 +17,8 @@ model Example {
 }
 
 model chores {
-    id          Int @id @default(autoincrement())
-    name        String
-    description String
-    length      Int
+  id          Int    @id @default(autoincrement())
+  name        String
+  description String
+  length      Int
 }

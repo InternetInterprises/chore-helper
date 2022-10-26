@@ -1,18 +1,20 @@
-# Chore Helper!
+# Chore Helper
 
 This is a simple app to spit out chores at you, for when you have down time and want to do something useful with youreself!
+
+# Getting Started
+
+You will need to copy `.env-example` to `.env`
+
+I think `npx prisma db push` will build the DB for you, but who knows!?
+
+Running the query in `chore-helper.session.sql` should add something to the DB for you
+
+Then `npm run dev` should start the app.
 
 # Create T3 App
 
 This is an app bootstrapped according to the [init.tips](https://init.tips) stack, also known as the T3-Stack.
-
-I think `npx prisma db push` will build the DB for you, but who knows!?
-
-## Why are there `.js` files in here?
-
-As per [T3-Axiom #3](https://github.com/t3-oss/create-t3-app/tree/next#3-typesafety-isnt-optional), we take typesafety as a first class citizen. Unfortunately, not all frameworks and plugins support TypeScript which means some of the configuration files have to be `.js` files.
-
-We try to emphasize that these files are javascript for a reason, by explicitly declaring its type (`cjs` or `mjs`) depending on what's supported by the library it is used by. Also, all the `js` files in this project are still typechecked using a `@ts-check` comment at the top.
 
 ## What's next? How do I make an app with this?
 
@@ -25,6 +27,8 @@ If you are not familiar with the different technologies used in this project, pl
 - [TailwindCSS](https://tailwindcss.com)
 - [tRPC](https://trpc.io)
 
+We also [roll our own docs](https://beta.create.t3.gg) with some summary information and links to the respective documentation.
+
 Also checkout these awesome tutorials on `create-t3-app`.
 
 - [Build a Blog With the T3 Stack - tRPC, TypeScript, Next.js, Prisma & Zod](https://www.youtube.com/watch?v=syEWlxVFUrY)
@@ -34,23 +38,4 @@ Also checkout these awesome tutorials on `create-t3-app`.
 
 ## How do I deploy this?
 
-### Vercel
-
-We recommend deploying to [Vercel](https://vercel.com/?utm_source=t3-oss&utm_campaign=oss). It makes it super easy to deploy NextJs apps.
-
-- Push your code to a GitHub repository.
-- Go to [Vercel](https://vercel.com/?utm_source=t3-oss&utm_campaign=oss) and sign up with GitHub.
-- Create a Project and import the repository you pushed your code to.
-- Add your environment variables.
-- Click **Deploy**
-- Now whenever you push a change to your repository, Vercel will automatically redeploy your website!
-
-### Docker
-
-You can also dockerize this stack and deploy a container. See the [Docker deployment page](https://create-t3-app-nu.vercel.app/en/deployment/docker) for details.
-
-## Useful resources
-
-Here are some resources that we commonly refer to:
-
-- [Protecting routes with Next-Auth.js](https://next-auth.js.org/configuration/nextjs#unstable_getserversession)
+Follow our deployment guides for [Vercel](https://beta.create.t3.gg/en/deployment/vercel) and [Docker](https://beta.create.t3.gg/en/deployment/docker) for more information.

@@ -1,4 +1,2 @@
-INSERT INTO chores (
-    name   "'Clean Bathroom",
-    description "Clean Toilets and Sinks",
-)
+INSERT INTO chores (name, description, length)
+VALUES ("Clean Bathroom", "Clean toilet and sinks", 1)

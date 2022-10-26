@@ -22,7 +22,7 @@ const AddChore: NextPage = (props) => {
         <div>
           <h1>Chores:</h1>
         </div>
-        <div className="flex w-full items-center justify-center pt-6 text-2xl text-blue-500">
+        <div className="items-center justify-center pt-6 text-2xl text-blue-500">
           {chores.data?.map((chore) => {
             return (
               <div key={chore.id}>
