@@ -3,30 +3,24 @@ import { useEffect, useState } from "react";
 import type { NextPage } from "next";
 import PageHead from "../components/header";
 import Title from "../components/title";
+import { chores } from "@prisma/client";
 import { trpc } from "../utils/trpc";
 
-const Home: NextPage = () => {
+const Home: NextPage = (props) => {
   const chores = trpc.chores.getAll.useQuery();
-
-  const [choreId, setChore] = useState(0);
+  const [chore, setChore] = useState({} as chores);
 
   const getRandomChore = () => {
     if (chores.data) {
       let randomId = 0;
-      let randomChore = {} as typeof chores.data[number];
+      let randomChore = {} as chores;
       do {
         randomId = Math.floor(Math.random() * chores.data.length);
-        randomChore = chores.data[randomId] as typeof chores.data[number];
-      } while (randomChore.id === choreId);
+        randomChore = chores.data[randomId] as chores;
+      } while (randomChore.id === chore.id);
 
-      setChore(randomChore.id);
+      setChore(randomChore);
     }
-  };
-
-  const getChore = () => {
-    return chores.data?.find((chore) => {
-      return chore.id === choreId;
-    });
   };
 
   useEffect(() => {
@@ -40,14 +34,12 @@ const Home: NextPage = () => {
       <Title title="Your Random Chore is:" />
 
       <div className="items-center justify-center pt-6 text-2xl text-blue-500">
-        <span className="font-semibold text-indigo-600">
-          {getChore()?.name}:
-        </span>
+        <span className="font-semibold text-indigo-600">{chore?.name}:</span>
         <div className="pl-4 font-normal text-green-600">
-          {getChore()?.description}
+          {chore?.description}
         </div>
         <div className="pl-4 font-normal text-fuchsia-600">
-          Length: {getChore()?.length}
+          Length: {chore?.length}
         </div>
         <div>
           <button

@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import PageHead from "../components/header";
 import Title from "../components/title";
+import { chores } from "@prisma/client";
 import { trpc } from "../utils/trpc";
 import { useState } from "react";
 
@@ -9,18 +10,16 @@ const AddChore: NextPage = (props) => {
   const [description, setDescription] = useState("");
   const [length, setLength] = useState(1);
 
-  const { mutate, error, data } = trpc.chores.addChore.useMutation();
+  const { mutate, error } = trpc.chores.addChore.useMutation();
 
-  type Chore = Extract<typeof data, { type: "chores" }>;
-
-  const addChore = (values: Chore) => {
+  const addChore = (values: chores) => {
     mutate(values);
   };
 
   const newChore = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      addChore({ name, description, length } as Chore);
+      addChore({ name, description, length } as chores);
     } catch (err) {
       console.log(err);
     }
