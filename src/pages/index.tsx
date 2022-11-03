@@ -1,38 +1,37 @@
-import type { NextPage } from "next";
 import { useEffect, useState } from "react";
+
+import type { NextPage } from "next";
 import PageHead from "../components/header";
 import Title from "../components/title";
 import { trpc } from "../utils/trpc";
 
-type Chore = {
-  id: number;
-  name: string;
-  description: string;
-  length: number;
-};
-
-const Home: NextPage = (props) => {
+const Home: NextPage = () => {
   const chores = trpc.chores.getAll.useQuery();
 
-  const [chore, setChore] = useState({} as Chore);
+  const [choreId, setChore] = useState(0);
 
   const getRandomChore = () => {
     if (chores.data) {
       let randomId = 0;
-      let randomChore = {} as Chore;
-
+      let randomChore = {} as typeof chores.data[number];
       do {
         randomId = Math.floor(Math.random() * chores.data.length);
-        randomChore = chores.data[randomId] as Chore;
-      } while (randomChore.id === chore.id);
+        randomChore = chores.data[randomId] as typeof chores.data[number];
+      } while (randomChore.id === choreId);
 
-      setChore(randomChore);
+      setChore(randomChore.id);
     }
+  };
+
+  const getChore = () => {
+    return chores.data?.find((chore) => {
+      return chore.id === choreId;
+    });
   };
 
   useEffect(() => {
     getRandomChore();
-  }, [chores.data]);
+  }, [chores?.data]);
 
   return (
     <>
@@ -41,12 +40,14 @@ const Home: NextPage = (props) => {
       <Title title="Your Random Chore is:" />
 
       <div className="items-center justify-center pt-6 text-2xl text-blue-500">
-        <span className="font-semibold text-indigo-600">{chore.name}:</span>
+        <span className="font-semibold text-indigo-600">
+          {getChore()?.name}:
+        </span>
         <div className="pl-4 font-normal text-green-600">
-          {chore.description}
+          {getChore()?.description}
         </div>
         <div className="pl-4 font-normal text-fuchsia-600">
-          Length: {chore.length}
+          Length: {getChore()?.length}
         </div>
         <div>
           <button

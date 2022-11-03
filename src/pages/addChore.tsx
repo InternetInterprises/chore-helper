@@ -1,8 +1,8 @@
 import type { NextPage } from "next";
-import { useState } from "react";
 import PageHead from "../components/header";
 import Title from "../components/title";
 import { trpc } from "../utils/trpc";
+import { useState } from "react";
 
 type defaultChore = {
   name: string;
