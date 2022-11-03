@@ -4,27 +4,23 @@ import Title from "../components/title";
 import { trpc } from "../utils/trpc";
 import { useState } from "react";
 
-type defaultChore = {
-  name: string;
-  description: string;
-  length: number;
-};
-
 const AddChore: NextPage = (props) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [length, setLength] = useState(1);
 
-  const { mutate, error } = trpc.chores.addChore.useMutation();
+  const { mutate, error, data } = trpc.chores.addChore.useMutation();
 
-  const addChore = (values: defaultChore) => {
+  type Chore = Extract<typeof data, { type: "chores" }>;
+
+  const addChore = (values: Chore) => {
     mutate(values);
   };
 
   const newChore = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await addChore({ name, description, length });
+      addChore({ name, description, length } as Chore);
     } catch (err) {
       console.log(err);
     }
