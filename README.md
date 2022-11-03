@@ -6,9 +6,11 @@ This is a simple app to spit out chores at you, for when you have down time and 
 
 You will need to copy `.env-example` to `.env`
 
+Probably need to do an `npm install`
+
 I think `npx prisma db push` will build the DB for you, but who knows!?
 
-Running the query in `chore-helper.session.sql` should add something to the DB for you
+You should be able to add and delete items now, so you shouldn't need to manually update the DB.
 
 Then `npm run dev` should start the app.
 

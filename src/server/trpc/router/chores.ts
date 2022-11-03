@@ -12,8 +12,30 @@ export const choresRouter = router({
   getAll: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.chores.findMany();
   }),
-  addChore: publicProcedure.query(({ ctx }) => {
-    // Haven't fugured out update yet
-    return ctx.prisma.chores.upsert();
-  }),
+  addChore: publicProcedure
+    .input(
+      z.object({
+        name: z.string(),
+        description: z.string().min(1).max(100),
+        length: z.number().min(1),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      const post = await ctx.prisma.chores.create({
+        data: input,
+      });
+      return post;
+    }),
+  deleteChore: publicProcedure
+    .input(
+      z.object({
+        id: z.number().min(1),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      const post = await ctx.prisma.chores.delete({
+        where: input,
+      });
+      return post;
+    }),
 });
