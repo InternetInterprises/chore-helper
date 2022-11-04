@@ -1,7 +1,7 @@
 // src/server/router/context.ts
-import type { inferAsyncReturnType } from "@trpc/server";
-import type { CreateNextContextOptions } from "@trpc/server/adapters/next";
-import { prisma } from "../db/client";
+import type { inferAsyncReturnType } from '@trpc/server';
+import type { CreateNextContextOptions } from '@trpc/server/adapters/next';
+import { prisma } from '../db/client';
 
 /**
  * Replace this with an object if you want to pass things to createContextInner

@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import Error from "../components/error";
-import type { NextPage } from "next";
-import PageHead from "../components/header";
-import Title from "../components/title";
-import { chores } from "@prisma/client";
-import { trpc } from "../utils/trpc";
+import Error from '../components/error';
+import type { NextPage } from 'next';
+import PageHead from '../components/header';
+import Title from '../components/title';
+import { chores } from '@prisma/client';
+import { trpc } from '../utils/trpc';
 
 const Home: NextPage = (props) => {
   const chores = trpc.chores.getAll.useQuery();

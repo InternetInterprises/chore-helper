@@ -1,8 +1,8 @@
 // src/server/router/_app.ts
-import { router } from "../trpc";
+import { router } from '../trpc';
 
-import { exampleRouter } from "./example";
-import { choresRouter } from "./chores";
+import { exampleRouter } from './example';
+import { choresRouter } from './chores';
 
 export const appRouter = router({
   example: exampleRouter,

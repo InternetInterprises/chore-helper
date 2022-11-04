@@ -1,16 +1,16 @@
-import Error from "../components/error";
-import type { NextPage } from "next";
-import PageHead from "../components/header";
-import Title from "../components/title";
-import { chores } from "@prisma/client";
-import { trpc } from "../utils/trpc";
-import { useState } from "react";
+import Error from '../components/error';
+import type { NextPage } from 'next';
+import PageHead from '../components/header';
+import Title from '../components/title';
+import { chores } from '@prisma/client';
+import { trpc } from '../utils/trpc';
+import { useState } from 'react';
 
 const AddChore: NextPage = (props) => {
   const [saving, setSaving] = useState(false);
   const [choreData, setChoreData] = useState({
-    name: "",
-    description: "",
+    name: '',
+    description: '',
     length: 1,
   } as chores);
   const { mutate, error } = trpc.chores.addChore.useMutation();
@@ -33,7 +33,7 @@ const AddChore: NextPage = (props) => {
 
   const clearForm = (e?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e?.preventDefault();
-    setChoreData({ name: "", description: "", length: 1 } as chores);
+    setChoreData({ name: '', description: '', length: 1 } as chores);
   };
 
   return (

@@ -1,10 +1,10 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 const Footer = () => {
   const links = [
-    { text: "Home", destination: "/" },
-    { text: "Add Chore", destination: "/addChore" },
-    { text: "View All", destination: "/viewAll" },
+    { text: 'Home', destination: '/' },
+    { text: 'Add Chore', destination: '/addChore' },
+    { text: 'View All', destination: '/viewAll' },
   ];
 
   return (

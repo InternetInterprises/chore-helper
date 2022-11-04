@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import Error from "../components/error";
-import type { NextPage } from "next";
-import PageHead from "../components/header";
-import Title from "../components/title";
-import { trpc } from "../utils/trpc";
+import Error from '../components/error';
+import type { NextPage } from 'next';
+import PageHead from '../components/header';
+import Title from '../components/title';
+import { trpc } from '../utils/trpc';
 
 const ViewAll: NextPage = (props) => {
   const choreList = trpc.chores.getAll.useQuery();
