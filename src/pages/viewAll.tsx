@@ -40,6 +40,9 @@ const ViewAll: NextPage = (props) => {
                 <span className="pl-4 font-normal text-green-600">
                   {chore.description}
                 </span>
+                <span className="pl-4 font-normal text-sky-600">
+                  Length: {chore.length}
+                </span>
                 <span
                   onClick={() => deleteChore(chore.id)}
                   className="cursor-pointer pl-4 text-red-500"
