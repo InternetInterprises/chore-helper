@@ -29,7 +29,7 @@ const ViewAll: NextPage = (props) => {
 
       {choreList.isFetching && <div> Loading... </div>}
 
-      {choreList.isFetched && (
+      {!choreList.isFetching && (
         <div className="items-center justify-center pt-6 text-2xl text-blue-500">
           {chores.map((chore) => {
             return (
