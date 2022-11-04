@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+import Error from "../components/error";
 import type { NextPage } from "next";
 import PageHead from "../components/header";
 import Title from "../components/title";
@@ -55,7 +56,7 @@ const ViewAll: NextPage = (props) => {
         </div>
       )}
 
-      <div className="text-red-600">{error && error.message}</div>
+      <Error error={error} />
     </>
   );
 };

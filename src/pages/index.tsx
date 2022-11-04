@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+import Error from "../components/error";
 import type { NextPage } from "next";
 import PageHead from "../components/header";
 import Title from "../components/title";
@@ -32,6 +33,8 @@ const Home: NextPage = (props) => {
       <PageHead title="Chore Helper" />
 
       <Title title="Your Random Chore is:" />
+
+      {chores.error && <Error error={chores.error} />}
 
       {chores.isFetching && <div> Loading... </div>}
 

@@ -16,7 +16,7 @@ export const choresRouter = router({
   addChore: publicProcedure
     .input(
       z.object({
-        name: z.string(),
+        name: z.string().min(1).max(25),
         description: z.string().min(1).max(100),
         length: z.number().min(1),
       })
