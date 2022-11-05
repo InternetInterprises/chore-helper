@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 
-import Error from '../components/error';
 import type { NextPage } from 'next';
 import PageHead from '../components/header';
 import Title from '../components/title';
@@ -9,12 +8,14 @@ import { trpc } from '../utils/trpc';
 
 const Home: NextPage = (props) => {
   const chores = trpc.chores.getAll.useQuery();
+
   const [chore, setChore] = useState({} as chores);
 
   const getRandomChore = () => {
-    if (chores.data) {
+    if (chores.data && chores.data.length > 0) {
       let randomId = 0;
       let randomChore = {} as chores;
+
       do {
         randomId = Math.floor(Math.random() * chores.data.length);
         randomChore = chores.data[randomId] as chores;
@@ -24,9 +25,7 @@ const Home: NextPage = (props) => {
     }
   };
 
-  useEffect(() => {
-    getRandomChore();
-  }, [chores?.data]);
+  useEffect(getRandomChore, [chores.data]);
 
   return (
     <>
@@ -34,18 +33,18 @@ const Home: NextPage = (props) => {
 
       <Title title="Your Random Chore is:" />
 
-      {chores.error && <Error error={chores.error} />}
+      {chores.data && chores.data.length === 0 && (
+        <div>To add some chores! This shit is empty!</div>
+      )}
 
-      {chores.isFetching && <div> Loading... </div>}
-
-      {!chores.isFetching && (
+      {chores.data && chores.data.length > 0 && (
         <div className="items-center justify-center pt-6 text-2xl text-blue-500">
-          <span className="font-semibold text-indigo-600">{chore?.name}:</span>
+          <span className="font-semibold text-indigo-600">{chore.name}:</span>
           <div className="pl-4 font-normal text-green-600">
-            {chore?.description}
+            {chore.description}
           </div>
           <div className="pl-4 font-normal text-fuchsia-600">
-            Length: {chore?.length}
+            Length: {chore.length}
           </div>
           <div>
             <button
