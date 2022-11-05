@@ -1,6 +1,8 @@
 # Chore Helper
 
-This is a simple app to spit out chores at you, for when you have down time and want to do something useful with youreself!
+This is a simple app to spit out chores at you, for when you have down time and want to do something useful with yourself!
+
+Design Doc: https://docs.google.com/document/d/1LKRBs6MyPBE4YD5cktKAYCYhkTKjhbxQS84mu8PpKYs/edit?usp=sharing
 
 # Getting Started
 

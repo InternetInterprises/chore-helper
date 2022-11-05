@@ -1,24 +1,23 @@
 import { useEffect, useState } from 'react';
-
+import { chores as Chores } from '@prisma/client';
 import type { NextPage } from 'next';
 import PageHead from '../components/header';
 import Title from '../components/title';
-import { chores } from '@prisma/client';
 import { trpc } from '../utils/trpc';
 
 const Home: NextPage = (props) => {
   const chores = trpc.chores.getAll.useQuery();
 
-  const [chore, setChore] = useState({} as chores);
+  const [chore, setChore] = useState({} as Chores);
 
   const getRandomChore = () => {
     if (chores.data && chores.data.length > 0) {
       let randomId = 0;
-      let randomChore = {} as chores;
+      let randomChore = {} as Chores;
 
       do {
         randomId = Math.floor(Math.random() * chores.data.length);
-        randomChore = chores.data[randomId] as chores;
+        randomChore = chores.data[randomId] as Chores;
       } while (randomChore.id === chore.id);
 
       setChore(randomChore);
