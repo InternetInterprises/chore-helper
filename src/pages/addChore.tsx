@@ -7,23 +7,23 @@ import { trpc } from '../utils/trpc';
 import { useState } from 'react';
 
 const AddChore: NextPage = (props) => {
-  const [saving, setSaving] = useState(false);
-  const [choreData, setChoreData] = useState({
+  const defaultChore = {
     name: '',
     description: '',
     length: 1,
-  } as chores);
-  const { mutate, error } = trpc.chores.addChore.useMutation();
-
-  const addChore = (values: chores) => {
-    mutate(values);
+  } as chores;
+  const [saving, setSaving] = useState(false);
+  const [choreData, updateChoreData] = useState(defaultChore);
+  const setChoreData = (data: Partial<chores>) => {
+    updateChoreData({ ...choreData, ...data });
   };
+  const { mutate, error } = trpc.chores.addChore.useMutation();
 
   const newChore = async (e: React.FormEvent<HTMLFormElement>) => {
     setSaving(true);
     e.preventDefault();
     try {
-      await addChore(choreData);
+      await mutate(choreData);
       clearForm();
     } catch (err) {
       console.log(err);
@@ -33,13 +33,12 @@ const AddChore: NextPage = (props) => {
 
   const clearForm = (e?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e?.preventDefault();
-    setChoreData({ name: '', description: '', length: 1 } as chores);
+    updateChoreData(defaultChore);
   };
 
   return (
     <>
       <PageHead title="Add Chore" />
-
       <Title title="Add Chore:" />
 
       {saving && <div>Saving...</div>}
@@ -55,9 +54,7 @@ const AddChore: NextPage = (props) => {
                 className="m-2 border"
                 placeholder="Clean Bathroom..."
                 value={choreData.name}
-                onChange={(e) =>
-                  setChoreData({ ...choreData, name: e.target.value })
-                }
+                onChange={(e) => setChoreData({ name: e.target.value })}
               />
             </div>
             <div>
@@ -68,9 +65,7 @@ const AddChore: NextPage = (props) => {
                 placeholder="Clean sinks and tub..."
                 className="m-2 border"
                 value={choreData.description}
-                onChange={(e) =>
-                  setChoreData({ ...choreData, description: e.target.value })
-                }
+                onChange={(e) => setChoreData({ description: e.target.value })}
               />
             </div>
             <div>
@@ -81,10 +76,7 @@ const AddChore: NextPage = (props) => {
                 className="m-2 border"
                 value={choreData.length}
                 onChange={(e) =>
-                  setChoreData({
-                    ...choreData,
-                    length: parseInt(e.target.value),
-                  })
+                  setChoreData({ length: parseInt(e.target.value) })
                 }
               />
             </div>

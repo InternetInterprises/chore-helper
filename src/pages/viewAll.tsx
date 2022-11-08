@@ -18,14 +18,13 @@ const ViewAll: NextPage = (props) => {
     },
   });
 
-  const deleteChore = async (choreId: number) => {
-    await mutate({ id: choreId });
+  const deleteChore = async (id: number) => {
+    await mutate({ id });
   };
 
   return (
     <>
       <PageHead title="View All Chores" />
-
       <Title title="Chores:" />
 
       {choreList.isFetching && <div> Loading... </div>}

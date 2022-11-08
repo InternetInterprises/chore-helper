@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+
 import { chores as Chores } from '@prisma/client';
 import type { NextPage } from 'next';
 import PageHead from '../components/header';
@@ -7,8 +8,11 @@ import { trpc } from '../utils/trpc';
 
 const Home: NextPage = (props) => {
   const chores = trpc.chores.getAll.useQuery();
-
   const [chore, setChore] = useState({} as Chores);
+  const hasChores = useMemo(
+    () => chores.data && chores.data.length > 0,
+    [chores]
+  );
 
   const getRandomChore = () => {
     if (chores.data && chores.data.length > 0) {
@@ -29,14 +33,11 @@ const Home: NextPage = (props) => {
   return (
     <>
       <PageHead title="Chore Helper" />
-
       <Title title="Your Random Chore is:" />
 
-      {chores.data && chores.data.length === 0 && (
-        <div>To add some chores! This shit is empty!</div>
-      )}
+      {!hasChores && <div>To add some chores! This shit is empty!</div>}
 
-      {chores.data && chores.data.length > 0 && (
+      {hasChores && (
         <div className="items-center justify-center pt-6 text-2xl text-blue-500">
           <span className="font-semibold text-indigo-600">{chore.name}:</span>
           <div className="pl-4 font-normal text-green-600">
