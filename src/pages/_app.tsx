@@ -1,13 +1,21 @@
-// src/pages/_app.tsx
-import '../styles/globals.css';
-import type { AppType } from 'next/app';
-import { trpc } from '../utils/trpc';
+import { type AppType } from 'next/app';
+import { type Session } from 'next-auth';
+import { SessionProvider } from 'next-auth/react';
 import Layout from '../components/layout';
 
-const MyApp: AppType = ({ Component, pageProps }) => {
+import { trpc } from '../utils/trpc';
+
+import '../styles/globals.css';
+
+const MyApp: AppType<{ session: Session | null }> = ({
+  Component,
+  pageProps: { session, ...pageProps },
+}) => {
   return (
     <Layout>
-      <Component {...pageProps} />
+      <SessionProvider session={session}>
+        <Component {...pageProps} />
+      </SessionProvider>
     </Layout>
   );
 };

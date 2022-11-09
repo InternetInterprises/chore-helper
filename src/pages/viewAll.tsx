@@ -8,7 +8,7 @@ import { trpc } from '../utils/trpc';
 
 const ViewAll: NextPage = (props) => {
   const choreList = trpc.chores.getAll.useQuery();
-  const [chores, updateChoreList] = useState(choreList?.data || []);
+  const [chores, updateChoreList] = useState(choreList.data || []);
 
   useEffect(() => updateChoreList(choreList.data || []), [choreList]);
 
