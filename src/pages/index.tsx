@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 
+import Auth from '../components/auth';
 import { chores as Chore } from '@prisma/client';
 import type { NextPage } from 'next';
 import PageHead from '../components/header';
@@ -53,6 +54,10 @@ const Home: NextPage = (props) => {
           </div>
         </div>
       )}
+
+      <div className="m-6">
+        <Auth />
+      </div>
     </>
   );
 };
