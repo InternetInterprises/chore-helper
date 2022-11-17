@@ -12,6 +12,7 @@ const Auth = () => {
 
   return (
     <div className="flex flex-col items-center justify-center gap-2">
+      <div>{JSON.stringify(sessionData)}</div>
       {sessionData && (
         <p className="text-2xl text-blue-500">
           Logged in as {sessionData?.user?.name}

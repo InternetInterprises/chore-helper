@@ -1,22 +1,26 @@
+import { useReducer, useState } from 'react';
+
 import Error from '../components/error';
 import type { NextPage } from 'next';
 import PageHead from '../components/header';
 import Title from '../components/title';
-import { chores } from '@prisma/client';
+import { chores as chore } from '@prisma/client';
 import { trpc } from '../utils/trpc';
-import { useState } from 'react';
 
 const AddChore: NextPage = (props) => {
   const defaultChore = {
     name: '',
     description: '',
     length: 1,
-  } as chores;
+  } as chore;
   const [saving, setSaving] = useState(false);
-  const [choreData, updateChoreData] = useState(defaultChore);
-  const setChoreData = (data: Partial<chores>) => {
-    updateChoreData({ ...choreData, ...data });
-  };
+  const [choreData, dispatch] = useReducer(
+    (state: chore, action: Partial<chore>) => {
+      return { ...state, ...action };
+    },
+    defaultChore
+  );
+
   const { mutate, error } = trpc.chores.addChore.useMutation();
 
   const newChore = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -33,7 +37,7 @@ const AddChore: NextPage = (props) => {
 
   const clearForm = (e?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e?.preventDefault();
-    updateChoreData(defaultChore);
+    dispatch(defaultChore);
   };
 
   return (
@@ -54,7 +58,7 @@ const AddChore: NextPage = (props) => {
                 className="m-2 border"
                 placeholder="Clean Bathroom..."
                 value={choreData.name}
-                onChange={(e) => setChoreData({ name: e.target.value })}
+                onChange={(e) => dispatch({ name: e.target.value })}
               />
             </div>
             <div>
@@ -65,7 +69,11 @@ const AddChore: NextPage = (props) => {
                 placeholder="Clean sinks and tub..."
                 className="m-2 border"
                 value={choreData.description}
-                onChange={(e) => setChoreData({ description: e.target.value })}
+                onChange={(e) =>
+                  dispatch({
+                    description: e.target.value,
+                  })
+                }
               />
             </div>
             <div>
@@ -76,7 +84,9 @@ const AddChore: NextPage = (props) => {
                 className="m-2 border"
                 value={choreData.length}
                 onChange={(e) =>
-                  setChoreData({ length: parseInt(e.target.value) })
+                  dispatch({
+                    length: parseInt(e.target.value),
+                  })
                 }
               />
             </div>

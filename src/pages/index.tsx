@@ -33,7 +33,9 @@ const Home: NextPage = (props) => {
       <PageHead title="Chore Helper" />
       <Title title="Your Random Chore is:" />
 
-      {!hasChores && <div>To add some chores! This shit is empty!</div>}
+      {!hasChores && (
+        <div className="text-4xl">To add some chores! This shit is empty!</div>
+      )}
 
       {hasChores && (
         <div className="items-center justify-center pt-6 text-2xl text-blue-500">
