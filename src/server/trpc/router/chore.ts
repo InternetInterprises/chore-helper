@@ -2,16 +2,16 @@ import { publicProcedure, router } from '../trpc';
 
 import { z } from 'zod';
 
-export const choresRouter = router({
-  chores: publicProcedure
+export const choreRouter = router({
+  chore: publicProcedure
     .input(z.object({ id: z.string().nullish() }).nullish())
     .query(({ input }) => {
       return {
-        chores: input,
+        chore: input,
       };
     }),
   getAll: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.chores.findMany();
+    return ctx.prisma.chore.findMany();
   }),
   addChore: publicProcedure
     .input(
@@ -22,8 +22,8 @@ export const choresRouter = router({
       })
     )
     .mutation(async ({ input, ctx }) => {
-      const post = await ctx.prisma.chores.create({
-        data: input,
+      const post = await ctx.prisma.chore.create({
+        data: { ...input, userId: ctx.session?.user?.id },
       });
       return post;
     }),
@@ -34,7 +34,7 @@ export const choresRouter = router({
       })
     )
     .mutation(async ({ input, ctx }) => {
-      const post = await ctx.prisma.chores.delete({
+      const post = await ctx.prisma.chore.delete({
         where: input,
       });
       return post;

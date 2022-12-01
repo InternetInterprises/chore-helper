@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-
+import { Chore } from '@prisma/client';
 import Error from '../components/error';
 import type { NextPage } from 'next';
 import PageHead from '../components/header';
@@ -7,12 +7,12 @@ import Title from '../components/title';
 import { trpc } from '../utils/trpc';
 
 const ViewAll: NextPage = (props) => {
-  const choreList = trpc.chores.getAll.useQuery();
-  const [chores, updateChoreList] = useState(choreList.data || []);
+  const choreList = trpc.chore.getAll.useQuery();
+  const [chores, updateChoreList] = useState(choreList.data || Array<Chore>);
 
   useEffect(() => updateChoreList(choreList.data || []), [choreList]);
 
-  const { mutate, error } = trpc.chores.deleteChore.useMutation({
+  const { mutate, error } = trpc.chore.deleteChore.useMutation({
     async onSuccess() {
       await choreList.refetch();
     },

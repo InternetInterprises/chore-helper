@@ -1,10 +1,10 @@
 import { useReducer, useState } from 'react';
 
+import { Chore } from '@prisma/client';
 import Error from '../components/error';
 import type { NextPage } from 'next';
 import PageHead from '../components/header';
 import Title from '../components/title';
-import { chores as chore } from '@prisma/client';
 import { trpc } from '../utils/trpc';
 
 const AddChore: NextPage = (props) => {
@@ -12,16 +12,14 @@ const AddChore: NextPage = (props) => {
     name: '',
     description: '',
     length: 1,
-  } as chore;
+  } as Chore;
   const [saving, setSaving] = useState(false);
   const [choreData, dispatch] = useReducer(
-    (state: chore, action: Partial<chore>) => {
-      return { ...state, ...action };
-    },
+    (state: Chore, action: Partial<Chore>) => ({ ...state, ...action }),
     defaultChore
   );
 
-  const { mutate, error } = trpc.chores.addChore.useMutation();
+  const { mutate, error } = trpc.chore.addChore.useMutation();
 
   const newChore = async (e: React.FormEvent<HTMLFormElement>) => {
     setSaving(true);
